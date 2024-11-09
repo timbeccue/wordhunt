@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Hunt Solver</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .board {
+      font-family: monospace;
+      white-space: pre;
+      margin-top: 20px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .valid-words {
+      margin-top: 20px;
+    }
+
+    .valid-words ul {
+      list-style-type: none;
+    }
+
+    .valid-words li {
+      margin: 5px 0;
+    }
+
+    .word-scores {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Word Hunt Solver</h1>
+    <form method="POST">
+      <label for="board_input">Enter Board (16 letters):</label>
+      <input type="text" id="board_input" name="board_input" maxlength="16" value="{{ board }}" required>
+      <button type="submit">Solve</button>
+    </form>
+
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if board %}
+    <div class="board">
+      <h3>Board:</h3>
+      <pre>{{ board }}</pre>
+    </div>
+    {% endif %}
+
+    {% if valid_words %}
+    <div class="valid-words">
+      <h3>Valid Words:</h3>
+      <ul>
+        {% for word in valid_words %}
+        <li>{{ word }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if word_scores %}
+    <div class="word-scores">
+      <h3>Word Scores:</h3>
+      <ul>
+        {% for score, count in word_scores %}
+        <li>Score: {{ score }} | Count: {{ count }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <a href="/generate_random_board">Generate Random Board</a>
+  </div>
+</body>
+
+</html>
